@@ -1,0 +1,36 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Vendor {
+  id           String   @id @default(uuid())
+  businessName String
+  email        String   @unique
+  passwordHash String
+  phone        String?
+  createdAt    DateTime @default(now())
+  orders       Order[]
+}
+
+enum OrderStatus {
+  pending
+  paid
+  shipped
+}
+
+model Order {
+  id            String      @id @default(uuid())
+  vendor        Vendor      @relation(fields: [vendorId], references: [id])
+  vendorId      String
+  customerName  String
+  customerPhone String
+  item          String
+  amount        Float
+  status        OrderStatus @default(pending)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
