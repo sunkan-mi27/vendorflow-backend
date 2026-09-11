@@ -13,6 +13,8 @@ model Vendor {
   passwordHash String
   phone        String?
   isPaid       Boolean  @default(false)
+  resetToken   String?
+  resetTokenExpiry DateTime?
   createdAt    DateTime @default(now())
   orders       Order[]
 }
