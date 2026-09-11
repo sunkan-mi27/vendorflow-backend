@@ -21,6 +21,12 @@ router.post("/verify", requireAuth, async (req, res) => {
       },
     );
     const data = await paystackRes.json();
+    if (!data.status || !data.data){
+      console.error("Paystack verfy failed:", data);
+      return res
+        .status(400)
+        .json({ rror: "Payment verification failed", details: data.message });
+    }
 
     if (data.data.status === "success") {
       await prisma.vendor.update({
