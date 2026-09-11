@@ -12,6 +12,7 @@ model Vendor {
   email        String   @unique
   passwordHash String
   phone        String?
+  isPaid       Boolean  @default(false)
   createdAt    DateTime @default(now())
   orders       Order[]
 }
