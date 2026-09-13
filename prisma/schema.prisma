@@ -15,6 +15,7 @@ model Vendor {
   isPaid       Boolean  @default(false)
   resetToken   String?
   resetTokenExpiry DateTime?
+  summaryResetAt   DateTime @default(now())
   createdAt    DateTime @default(now())
   orders       Order[]
 }
@@ -34,6 +35,7 @@ model Order {
   item          String
   amount        Float
   status        OrderStatus @default(pending)
+  isArchived    Boolean     @default(false)
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
 }

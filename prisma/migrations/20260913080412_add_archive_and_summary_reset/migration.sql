@@ -1,0 +1,5 @@
+-- AlterTable
+ALTER TABLE "Order" ADD COLUMN     "isArchived" BOOLEAN NOT NULL DEFAULT false;
+
+-- AlterTable
+ALTER TABLE "Vendor" ADD COLUMN     "summaryResetAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP;
