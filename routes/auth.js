@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import crypto from "crypto";
 import { Resend } from "resend";
 import prisma from "../prismaClient.js";
+import { error } from "console";
 
 const router = express.Router();
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -15,6 +16,12 @@ router.post("/register", async (req, res) => {
     return res
       .status(400)
       .json({ error: "businessName, email, and password are required" });
+  }
+
+  if (password.length < 6) {
+    return res
+      .status(400)
+      .json({ error: "Password must be at least 6 characters" });
   }
 
   try {
@@ -130,6 +137,12 @@ router.post("/reset-password", async (req, res) => {
     return res
       .status(400)
       .json({ error: "token and newPassword are required" });
+  }
+
+  if (newPassword.length < 6) {
+    return res
+      .status(400)
+      .json({ error: "Password must be at least 6 characters" });
   }
 
   try {
