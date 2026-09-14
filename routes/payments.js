@@ -28,7 +28,7 @@ router.post("/verify", requireAuth, async (req, res) => {
         .json({ error: "Payment verification failed", details: data.message });
     }
 
-    if (data.data.status === "success") {
+    if (data.data.status === "success" && data.data.amount === 250000) {
       await prisma.vendor.update({
         where: { id: req.vendorId },
         data: { isPaid: true },
