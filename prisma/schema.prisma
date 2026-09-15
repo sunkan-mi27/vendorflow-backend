@@ -12,6 +12,8 @@ model Vendor {
   email        String   @unique
   passwordHash String
   phone        String?
+  platform     String   @default("whatsapp")
+  handle       String?
   isPaid       Boolean  @default(false)
   resetToken   String?
   resetTokenExpiry DateTime?

@@ -10,7 +10,7 @@ const router = express.Router();
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 router.post("/register", async (req, res) => {
-  const { businessName, email, password, phone } = req.body;
+  const { businessName, email, password, phone, platform, handle } = req.body;
 
   if (!businessName || !email || !password) {
     return res
@@ -32,7 +32,14 @@ router.post("/register", async (req, res) => {
 
     const passwordHash = await bcrypt.hash(password, 10);
     const vendor = await prisma.vendor.create({
-      data: { businessName, email, passwordHash, phone },
+      data: {
+        businessName,
+        email,
+        passwordHash,
+        phone,
+        platform: platform || "whatsapp",
+        handle,
+      },
     });
 
     const token = jwt.sign({ vendorId: vendor.id }, process.env.JWT_SECRET, {
